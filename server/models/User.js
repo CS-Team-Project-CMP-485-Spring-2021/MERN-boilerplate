@@ -23,6 +23,19 @@ const UserSchema = new mongoose.Schema({
     default: false
   },
 
+//For tomorrow (4-22-21): This is the problem. The primitive data type must be chosen correctly.
+//ASAP
+
+/*
+  Primitive types are the most basic data types available within the Java language.
+  There are 8: boolean, byte, char, short, int, long, float and double
+*/
+  clearance: {
+    type: String,
+    default: ''
+  },
+
+
 });
 
 UserSchema.methods.generateHash = function(password) {
@@ -31,6 +44,14 @@ UserSchema.methods.generateHash = function(password) {
 
 UserSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
+};
+
+UserSchema.methods.generateHash = function(clearance) {
+  return bcrypt.hashSync(clearance, bcrypt.genSaltSync(8), null);
+};
+
+UserSchema.methods.validClearance = function(clearance) {
+  return bcrypt.compareSync(clearance, this.clearance);
 };
 
 module.exports = mongoose.model('User', UserSchema);

@@ -1,20 +1,6 @@
 const User = require('../../models/User')
 const UserSession = require('../../models/UserSession')
 module.exports = (app) => {
-  // app.get('/api/counters', (req, res, next) => {
-  //   Counter.find()
-  //     .exec()
-  //     .then((counter) => res.json(counter))
-  //     .catch((err) => next(err));
-  // });
-  //
-  // app.post('/api/counters', function (req, res, next) {
-  //   const counter = new Counter();
-  //
-  //   counter.save()
-  //     .then(() => res.json(counter))
-  //     .catch((err) => next(err));
-  // });
 
   /*
   * Sign Up Portion
@@ -29,31 +15,51 @@ module.exports = (app) => {
     let {
       email
     } = body;
+    let {
+      clearance
+    } = body;
 
     if (!firstName) {
       return res.send ({
         success: false,
-        message: 'Error: First Name cannot be blank.'
+        message: 'Error: To sign up, your first name cannot be blank.'
       });
     }
     if (!lastName) {
       return res.send ({
         success: false,
-        message: 'Error: Last Name cannot be blank.'
+        message: 'Error: To sign up, your last name cannot be blank.'
       });
     }
     if (!email) {
       return res.send ({
         success: false,
-        message: 'Error: Email cannot be blank.'
+        message: 'Error: To sign up, your email cannot be blank.'
       });
     }
     if (!password) {
       return res.send ({
         success: false,
-        message: 'Error: Password cannot be blank.'
+        message: 'Error: To sign up, your password cannot be blank.'
       });
     }
+
+   if (!clearance) {
+      return res.send ({
+        success: false,
+        message: 'Error: To sign up, you must identify your clearance.'
+    });
+  }
+
+  /*
+    End 4/21/2021 Code Merger here.
+    Main issue: The error: 'Error: You must identify your clearance.' appears throughout all drop down menu options.
+    What can be done? Create new rules above.
+    What else? Refine saving procedure.
+    ...
+    Hmmm...
+
+  */
 
     console.log('here');
 
@@ -84,6 +90,8 @@ module.exports = (app) => {
       newUser.firstName = firstName;
       newUser.lastName = lastName;
       newUser.password = newUser.generateHash(password);
+      newUser.clearance = newUser.generateHash(clearance);
+
       newUser.save((err, user) => {
         if (err) {
           return res.send ({
@@ -99,6 +107,7 @@ module.exports = (app) => {
     });
   });
 
+  //Sign In
   app.post('/api/account/signin', (req, res, next) => {
     const { body } = req;
     const {
@@ -108,16 +117,29 @@ module.exports = (app) => {
       email
     } = body;
 
+    //Logic Check
+    let {
+      clearance
+    } = body;
+
+
     if (!email) {
       return res.send ({
         success: false,
-        message: 'Error: Email cannot be blank.'
+        message: 'Error: To sign in, your email cannot be blank.'
       });
     }
     if (!password) {
       return res.send ({
         success: false,
-        message: 'Error: Password cannot be blank.'
+        message: 'Error: To sign in, your password cannot be blank.'
+      });
+    }
+
+    if (!clearance) {
+      return res.send ({
+        success: false,
+        message: 'Error: To sign in, you must identify your clearance.'
       });
     }
 
@@ -141,12 +163,21 @@ module.exports = (app) => {
       }
 
       const user = users[0];
+
       if(!user.validPassword(password)) {
         return res.send ({
           success: false,
           message: 'Error: Invalid Password'
         });
+
       }
+      if(!user.validClearance(clearance)) {
+        return res.send ({
+            success: false,
+            message: 'Error: Incorrect Clearance'
+        });
+      }
+
 
       // Otherwise, Create User Session
       const userSession = new UserSession();
@@ -160,7 +191,7 @@ module.exports = (app) => {
           });
         }
 
-        return res.send({
+          return res.send({
           success: true,
           message: 'Thank you!',
           token: doc._id

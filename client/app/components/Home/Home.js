@@ -22,6 +22,11 @@ class Home extends Component {
       signUpLastName: '',
       signUpEmail: '',
       signUpPassword: '',
+
+      //Test
+      signUpClearance: '',
+      signInClearance: '',
+
     };
 
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
@@ -30,6 +35,8 @@ class Home extends Component {
     this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
     this.onTextboxChangeSignUpFirstName = this.onTextboxChangeSignUpFirstName.bind(this);
     this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
+    this.onTextboxChangeSignUpClearance = this.onTextboxChangeSignUpClearance.bind(this);
+    this.onTextboxChangeSignInClearance = this.onTextboxChangeSignInClearance.bind(this);
 
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
@@ -98,6 +105,18 @@ class Home extends Component {
     });
   }
 
+  onTextboxChangeSignUpClearance(event) {
+    this.setState ({
+       signUpClearance: event.target.value,
+    });
+  }
+
+  onTextboxChangeSignInClearance(event) {
+    this.setState ({
+       signInClearance: event.target.value,
+    });
+  }
+
   onSignUp() {
     // Grab State
     const {
@@ -105,6 +124,7 @@ class Home extends Component {
       signUpLastName,
       signUpEmail,
       signUpPassword,
+      signUpClearance,
     } = this.state;
 
     this.setState({
@@ -122,6 +142,7 @@ class Home extends Component {
         lastName: signUpLastName,
         email: signUpEmail,
         password: signUpPassword,
+        clearance: signUpClearance,
       }),
     }).then(res => res.json())
       .then(json => {
@@ -134,6 +155,7 @@ class Home extends Component {
               signUpPassword: '',
               signUpFirstName: '',
               signUpLastName: '',
+              signUpClearance: '',
             });
           } else {
             this.setState({
@@ -148,6 +170,7 @@ class Home extends Component {
     const {
       signInEmail,
       signInPassword,
+      signInClearance,
     } = this.state;
 
     this.setState({
@@ -163,6 +186,7 @@ class Home extends Component {
       body: JSON.stringify({
         email: signInEmail,
         password: signInPassword,
+        clearance: signInClearance,
       }),
     }).then(res => res.json())
       .then(json => {
@@ -174,6 +198,7 @@ class Home extends Component {
               isLoading: false,
               signInPassword: '',
               signInEmail: '',
+              signInClearance: '',
               token: json.token,
             });
           } else {
@@ -226,6 +251,8 @@ class Home extends Component {
       signUpEmail,
       signUpPassword,
       signUpError,
+      signInClearance,
+      signUpClearance,
     } = this.state;
 
     if (isLoading) {
@@ -256,6 +283,22 @@ class Home extends Component {
               onChange={this.onTextboxChangeSignInPassword}
             />
             <br />
+
+            {/*SignIn*/}
+            <div>
+            <select
+            type="clearance"
+            id="Clearance"
+            value={signInClearance}
+            onChange={this.onTextboxChangeSignInClearance}
+            >
+              <option value="Select">Select</option>
+              <option value="Patient">Patient</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Admin">Admin</option>
+            </select>
+            </div><br />
+
             <button onClick={this.onSignIn}>Sign In</button>
           </div>
 
@@ -292,6 +335,22 @@ class Home extends Component {
               value={signUpPassword}
               onChange={this.onTextboxChangeSignUpPassword}
             /><br />
+
+            {/*SignUp*/}
+            <div>
+            <select
+            type="clearance"
+            id="Clearance"
+            value={signUpClearance}
+            onChange={this.onTextboxChangeSignUpClearance}
+            >
+              <option value="Select">Select</option>
+              <option value="Patient">Patient</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Admin">Admin</option>
+            </select>
+            </div><br />
+
             <button onClick={this.onSignUp}>Sign Up</button>
           </div>
 
