@@ -14,32 +14,25 @@ class Home extends Component {
     this.state = {
       isLoading: true,
       token: '',
-      signUpError: '',
+
       signInError: '',
       signInEmail: '',
       signInPassword: '',
-      signUpFirstName: '',
-      signUpLastName: '',
-      signUpEmail: '',
-      signUpPassword: '',
+
 
       //Test
-      signUpClearance: '',
+
       signInClearance: '',
 
     };
 
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
-    this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
-    this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
-    this.onTextboxChangeSignUpFirstName = this.onTextboxChangeSignUpFirstName.bind(this);
-    this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
-    this.onTextboxChangeSignUpClearance = this.onTextboxChangeSignUpClearance.bind(this);
+
     this.onTextboxChangeSignInClearance = this.onTextboxChangeSignInClearance.bind(this);
 
     this.onSignIn = this.onSignIn.bind(this);
-    this.onSignUp = this.onSignUp.bind(this);
+
     this.logout = this.logout.bind(this);
    }
 
@@ -81,35 +74,7 @@ class Home extends Component {
     });
   }
 
-  onTextboxChangeSignUpEmail(event) {
-    this.setState ({
-       signUpEmail: event.target.value,
-    });
-  }
 
-  onTextboxChangeSignUpPassword(event) {
-    this.setState ({
-       signUpPassword: event.target.value,
-    });
-  }
-
-  onTextboxChangeSignUpFirstName(event) {
-    this.setState ({
-       signUpFirstName: event.target.value,
-    });
-  }
-
-  onTextboxChangeSignUpLastName(event) {
-    this.setState ({
-       signUpLastName: event.target.value,
-    });
-  }
-
-  onTextboxChangeSignUpClearance(event) {
-    this.setState ({
-       signUpClearance: event.target.value,
-    });
-  }
 
   onTextboxChangeSignInClearance(event) {
     this.setState ({
@@ -117,54 +82,7 @@ class Home extends Component {
     });
   }
 
-  onSignUp() {
-    // Grab State
-    const {
-      signUpFirstName,
-      signUpLastName,
-      signUpEmail,
-      signUpPassword,
-      signUpClearance,
-    } = this.state;
 
-    this.setState({
-      isLoading: true,
-    });
-
-    // Post request to backend
-    fetch('/api/account/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        firstName: signUpFirstName,
-        lastName: signUpLastName,
-        email: signUpEmail,
-        password: signUpPassword,
-        clearance: signUpClearance,
-      }),
-    }).then(res => res.json())
-      .then(json => {
-          console.log('json', json);
-          if (json.success) {
-            this.setState({
-              signUpError: json.message,
-              isLoading: false,
-              signUpEmail: '',
-              signUpPassword: '',
-              signUpFirstName: '',
-              signUpLastName: '',
-              signUpClearance: '',
-            });
-          } else {
-            this.setState({
-              signUpError: json.message,
-              isLoading: false,
-            });
-          }
-      });
-  }
 
   onSignIn() {
     const {
@@ -246,13 +164,9 @@ class Home extends Component {
       signInError,
       signInEmail,
       signInPassword,
-      signUpFirstName,
-      signUpLastName,
-      signUpEmail,
-      signUpPassword,
-      signUpError,
+
       signInClearance,
-      signUpClearance,
+
     } = this.state;
 
     if (isLoading) {
@@ -305,53 +219,7 @@ class Home extends Component {
           <br />
           <br />
           <div>
-            {
-              (signUpError) ? (
-                <p>{signUpError}</p>
-              ) : (null)
-            }
-            <p>Sign Up</p>
-            <input
-              type="text"
-              placeholder="First Name"
-              value={signUpFirstName}
-              onChange={this.onTextboxChangeSignUpFirstName}
-            /><br />
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={signUpLastName}
-              onChange={this.onTextboxChangeSignUpLastName}
-            /><br />
-            <input
-              type="email"
-              placeholder="Email"
-              value={signUpEmail}
-              onChange={this.onTextboxChangeSignUpEmail}
-            /><br />
-            <input
-              type="password"
-              placeholder="Password"
-              value={signUpPassword}
-              onChange={this.onTextboxChangeSignUpPassword}
-            /><br />
 
-            {/*SignUp*/}
-            <div>
-            <select
-            type="clearance"
-            id="Clearance"
-            value={signUpClearance}
-            onChange={this.onTextboxChangeSignUpClearance}
-            >
-              <option value="Select">Select</option>
-              <option value="Patient">Patient</option>
-              <option value="Doctor">Doctor</option>
-              <option value="Admin">Admin</option>
-            </select>
-            </div><br />
-
-            <button onClick={this.onSignUp}>Sign Up</button>
           </div>
 
 

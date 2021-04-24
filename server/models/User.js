@@ -22,14 +22,6 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-
-//For tomorrow (4-22-21): This is the problem. The primitive data type must be chosen correctly.
-//ASAP
-
-/*
-  Primitive types are the most basic data types available within the Java language.
-  There are 8: boolean, byte, char, short, int, long, float and double
-*/
   clearance: {
     type: String,
     default: ''
