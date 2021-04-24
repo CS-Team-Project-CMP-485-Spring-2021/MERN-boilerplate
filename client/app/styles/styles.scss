@@ -2,23 +2,33 @@
 
 @import 'vendor/normalize';
 
-.top-menu{
-    background-color:  darkblue ;
-}
-
-.top-menu a{
-    color: white;
-}
-
 form{
     border: 2px solid orange;
     background-color:  lightblue ;
     border-radius: 25px;
 }
 body{
-    background-color:   #d4e6f1  ;
+    background-color:   #d4e6f1;
+    position: left;
+      clear: both;
+      text-align:center;
+      padding: 18px 0;
 }
-.form-header{
-    font-size: 64px;
+
+header{
     color: darkblue;
+
+}
+
+footer {
+  position: left;
+    clear: both;
+    text-align:center;
+/* 	height: 50px;	 */
+    padding: 18px 0;
+}
+
+
+nav {
+
 }
