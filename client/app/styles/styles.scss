@@ -6,6 +6,9 @@ form{
     border: 2px solid orange;
     background-color:  lightblue ;
     border-radius: 25px;
+    width: 60%;
+    margin:0 auto;
+    padding:3%;
 }
 body{
     background-color:   #d4e6f1;
@@ -14,12 +17,21 @@ body{
       text-align:center;
       padding: 18px 0;
 }
-
+nav {
+    text-align:left;
+}
 header{
+    background-color: darkblue;
+   
+}
+.form-header{
+    font-size: 32px;
     color: darkblue;
+}
+header  > nav > a{
+    color: white;
 
 }
-
 footer {
   position: left;
     clear: both;

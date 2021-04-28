@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
 import {
   getFromStorage,
   setInStorage,
@@ -175,15 +180,17 @@ class Home extends Component {
 
     if (!token) {
       return (
-        <div>
+        
           <div>
             {
               (signInError) ? (
                 <p>{signInError}</p>
               ) : (null)
             }
-            <p>Sign In</p>
+            <p className= "form-header">Medical Report Management System</p>
+            <form className="section1">
             <input
+             className="form-control"
               type="email"
               placeholder="Email"
               value={signInEmail}
@@ -191,6 +198,7 @@ class Home extends Component {
             />
             <br />
             <input
+              className="form-control"
               type="password"
               placeholder="Password"
               value={signInPassword}
@@ -199,28 +207,37 @@ class Home extends Component {
             <br />
 
             {/*SignIn*/}
-            <div>
-            <select
+            
+            <div
             type="clearance"
             id="Clearance"
             value={signInClearance}
             onChange={this.onTextboxChangeSignInClearance}
             >
-              <option value="Select">Select</option>
-              <option value="Patient">Patient</option>
-              <option value="Doctor">Doctor</option>
-              <option value="Admin">Admin</option>
-            </select>
-            </div><br />
+              <input type="radio" value="Patient" name="user" /> Patient
+                            <input type="radio" value="Doctor" name="user" /> Doctor
+                            <input type="radio" value="Admin" name="user" /> Admin
+             
+            </div>
+            <br />
 
             <button onClick={this.onSignIn}>Sign In</button>
-          </div>
+            <br />
+          <hr />
+            <div className="form-group">
+              <h4>Don't have an account?</h4>
+              <h4>
+                  <Link className="menu" to={{pathname: '/signup'}}>
+                      Sign Up
+                  </Link>
 
-          <br />
-          <br />
-          <div>
-
+              </h4>
           </div>
+          </form>
+          
+         
+          
+       
 
 
         </div>
