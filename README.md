@@ -13,36 +13,6 @@ git clone https://github.com/CS-Team-Project-CMP-485-Spring-2021/MERN-boilerplat
 cd MERN-boilerplate
 npm install
 npm install bcrypt --save
-npm run start:dev
-```
-This is a boilerplate project using the following technologies:
-- [React](https://facebook.github.io/react/) and [React Router](https://reacttraining.com/react-router/) for the frontend
-- [Express](http://expressjs.com/) and [Mongoose](http://mongoosejs.com/) for the backend
-- [Sass](http://sass-lang.com/) for styles (using the SCSS syntax)
-- [Webpack](https://webpack.github.io/) for compilation
-
-
-## Requirements
-
-- [Node.js](https://nodejs.org/en/) 6+
-
-```shell
-npm install
-```
-
-
-## Running
-
-Make sure to add a `config.js` file in the `config` folder. See the example there for more details.
-
-Production mode:
-
-```shell
-npm start
-```
-
-Development (Webpack dev server) mode:
-
-```shell
+npm install @babel/core @babel/cli @babel/preset-env --save-dev
 npm run start:dev
 ```
