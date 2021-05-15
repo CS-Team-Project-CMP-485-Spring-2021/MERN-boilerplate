@@ -13,6 +13,9 @@ git clone https://github.com/CS-Team-Project-CMP-485-Spring-2021/MERN-boilerplat
 cd MERN-boilerplate
 npm install
 npm install bcrypt --save
+npm install webpack
 npm install @babel/core @babel/cli @babel/preset-env --save-dev
+npm install bootstrap
+npm install react-datepicker
 npm run start:dev
 ```
