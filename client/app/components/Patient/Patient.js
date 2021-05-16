@@ -3,6 +3,7 @@ import Table from './Table';
 import Appointment from './Appointment';
 
 
+
 class Patient extends React.Component {
     constructor(props){
         super(props)
@@ -32,7 +33,7 @@ class Patient extends React.Component {
                 
                 <br/>
                     <h3 style={{color:'black', textDecoration: 'underline black' }}>Set Up An Appointment</h3>
-                    <Form handleSubmit = {this.handleSubmit}/>
+                    <Appointment handleSubmit = {this.handleSubmit}/>
                 <br/>
 
             </div>

@@ -13,18 +13,19 @@ import NotFound from './components/App/NotFound';
 
 import Home from './components/Home/Home';
 import Patient from './components/Patient/Patient';
-
+import history from './components/History'
 import HelloWorld from './components/HelloWorld/HelloWorld';
+
 
 import './styles/styles.scss';
 
 render((
-  <Router>
+  <Router history={history}>
     <App>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/patient" component={Patient}/>
-        <Route path="/helloworld" component={HelloWorld}/>
+        <Route exact path="/helloworld" component={HelloWorld}/>
         <Route component={NotFound}/>
       </Switch>
     </App>
