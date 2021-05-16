@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
-} from 'react-router-dom'
+import history from '../History';
+import{Link} from 'react-router-dom';
 import {
   getFromStorage,
   setInStorage,
@@ -30,6 +26,7 @@ class Home extends Component {
       signInClearance: '',
 
     };
+    this.handlePageChange = this.handlePageChange.bind(this);
 
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
@@ -40,6 +37,7 @@ class Home extends Component {
 
     this.logout = this.logout.bind(this);
    }
+
 
   componentDidMount() {
     const obj = getFromStorage('the_main_app');
@@ -64,6 +62,16 @@ class Home extends Component {
       this.setState({
         isLoading: false,
       });
+    }
+  }
+
+  handlePageChange(page){
+    if (this.state.signInClearance === 'Patient'){
+      return(
+        //history.push('/patient')
+        <Link to='/patient'> </Link>
+      )
+      
     }
   }
 
@@ -214,20 +222,22 @@ class Home extends Component {
             value={signInClearance}
             onChange={this.onTextboxChangeSignInClearance}
             >
-              <input type="radio" value="Patient" name="user" /> Patient
+              <input type="radio" value="Patient" name="user"/> Patient
                             <input type="radio" value="Doctor" name="user" /> Doctor
                             <input type="radio" value="Admin" name="user" /> Admin
              
             </div>
             <br />
 
-            <button onClick={this.onSignIn}>Sign In</button>
+            <button id='signButton' onClick={() => {
+              this.onSignIn()
+              this.handlePageChange(this.state.signInClearance)}}>Sign In</button>
             <br />
           <hr />
             <div className="form-group">
               <h4>Don't have an account?</h4>
               <h4>
-                  <Link className="menu" to={{pathname: '/signup'}}>
+                  <Link className="menu" to='/helloworld'>
                       Sign Up
                   </Link>
 
@@ -244,9 +254,16 @@ class Home extends Component {
       );
     }
 
+    // if(document.getElementByName('user').value === ' Patient' ){
+    //   return(
+    //     <Link to={{pathname:'/patient'}}> </Link>
+    //   );
+    // }
+
     return (
       <div>
-        <p>Account</p>
+        <Link to='/patient'> </Link>
+        
         <button onClick={this.logout}>Logout</button>
       </div>
     );
